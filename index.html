@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienes Raíces Encarnación</title>
+  <link rel="icon" href="https://i.ibb.co/whqfYrcY/logo-vienes-raices.jpg" type="image/jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-oscuro: #0a2e22;
+      --verde-medio: #0f4a36;
+      --verde-vivo: #1a6b4d;
+      --verde-claro: #2d9e70;
+      --dorado: #c9a84c;
+      --dorado-claro: #e8ca82;
+      --crema: #f8f5ef;
+      --blanco: #ffffff;
+      --gris: #6b7a72;
+      --texto: #1a2620;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--crema);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,46,34,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      transition: all .3s;
+    }
+    .nav-logo { display: flex; align-items: center; gap: .75rem; text-decoration: none; }
+    .nav-logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--dorado); }
+    .nav-logo span { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: var(--blanco); letter-spacing: .3px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 400; letter-spacing: .8px; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--dorado-claro); }
+    .nav-cta {
+      background: var(--dorado); color: var(--verde-oscuro);
+      padding: 8px 20px; border-radius: 2px;
+      font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none; transition: background .2s;
+    }
+    .nav-cta:hover { background: var(--dorado-claro); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--verde-oscuro) 0%, var(--verde-medio) 55%, var(--verde-vivo) 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--dorado-claro);
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 2px; margin-bottom: 1.75rem;
+      animation: fadeUp .8s ease both;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 600; color: var(--blanco);
+      line-height: 1.1; margin-bottom: 1.25rem;
+      animation: fadeUp .8s .15s ease both;
+    }
+    .hero h1 em { color: var(--dorado-claro); font-style: normal; }
+    .hero p {
+      font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.8;
+      max-width: 520px; margin: 0 auto 2.5rem;
+      animation: fadeUp .8s .3s ease both;
+    }
+    .hero-buttons {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .8s .45s ease both;
+    }
+    .btn-primary {
+      background: var(--dorado); color: var(--verde-oscuro);
+      padding: 14px 32px; border-radius: 2px;
+      font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none; transition: all .2s;
+      border: 1.5px solid var(--dorado);
+    }
+    .btn-primary:hover { background: var(--dorado-claro); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: var(--blanco);
+      padding: 14px 32px; border-radius: 2px;
+      font-size: 13px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none; border: 1.5px solid rgba(255,255,255,0.35);
+      transition: all .2s;
+    }
+    .btn-outline:hover { border-color: var(--blanco); background: rgba(255,255,255,0.07); }
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); }
+
+    /* STATS */
+    .stats {
+      background: var(--verde-oscuro);
+      padding: 2.5rem 2rem;
+      display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+    }
+    .stat-item {
+      text-align: center; padding: 1rem 3rem;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; color: var(--dorado-claro); }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+
+    /* SECTIONS COMMON */
+    section { padding: 6rem 2rem; }
+    .section-tag {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--verde-vivo); margin-bottom: .75rem; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600; color: var(--texto); line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-title.light { color: var(--blanco); }
+    .section-sub { font-size: 15px; color: var(--gris); line-height: 1.8; max-width: 560px; }
+    .section-sub.light { color: rgba(255,255,255,0.65); }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* PROPIEDADES */
+    #propiedades { background: var(--crema); }
+    .props-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+    .ver-todas { font-size: 13px; color: var(--verde-vivo); text-decoration: none; letter-spacing: .5px; border-bottom: 1px solid var(--verde-vivo); padding-bottom: 2px; transition: color .2s; }
+    .ver-todas:hover { color: var(--verde-oscuro); }
+    .props-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+
+    /* CARD */
+    .prop-card {
+      background: var(--blanco);
+      border-radius: 4px; overflow: hidden;
+      box-shadow: 0 2px 20px rgba(10,46,34,0.07);
+      transition: transform .3s, box-shadow .3s;
+      color: inherit; display: block;
+    }
+    .prop-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(10,46,34,0.13); }
+
+    /* CARRUSEL */
+    .carousel { position: relative; overflow: hidden; height: 220px; background: #111e18; touch-action: pan-y; }
+    .carousel-track { display: flex; height: 100%; transition: transform .35s ease; }
+    .carousel-track img { min-width: 100%; width: 100%; height: 220px; object-fit: contain; object-position: center; flex-shrink: 0; display: block; background: #111e18; }
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(10,46,34,0.65); border: none; cursor: pointer;
+      color: #fff; font-size: 16px; display: flex; align-items: center; justify-content: center;
+      z-index: 5; opacity: 0; transition: opacity .2s, background .2s;
+    }
+    .carousel:hover .carousel-btn { opacity: 1; }
+    .carousel-btn.prev { left: 8px; }
+    .carousel-btn.next { right: 8px; }
+    .carousel-btn:hover { background: rgba(10,46,34,0.92); }
+    .carousel-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 5; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: background .2s; cursor: pointer; }
+    .carousel-dot.active { background: #fff; }
+    .carousel-counter { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.45); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 10px; z-index: 5; }
+    .prop-img-placeholder {
+      width: 100%; height: 220px;
+      background: linear-gradient(135deg, #d4e8dc, #aaccbb);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .prop-body { padding: 1.25rem; }
+    .prop-tipo { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--verde-vivo); margin-bottom: .4rem; display: flex; align-items: center; gap: 5px; }
+    .prop-nombre { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: .4rem; color: var(--texto); }
+    .prop-dir { font-size: 12px; color: var(--gris); margin-bottom: .75rem; display: flex; align-items: center; gap: 4px; }
+    .prop-precio { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--verde-oscuro); }
+    .prop-metros { font-size: 12px; color: var(--gris); margin-top: 4px; }
+    .prop-estado { display: inline-block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; margin-top: .75rem; }
+    .estado-disponible { background: #e2f5ec; color: #085041; }
+    .estado-apartado { background: #fff3cd; color: #7a4f00; }
+    .estado-vendido { background: #fde8e8; color: #7a2020; }
+    .prop-wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-top: 1rem; width: 100%; padding: 10px;
+      background: var(--verde-oscuro); color: #fff; border: none; border-radius: 2px;
+      font-size: 13px; font-weight: 500; letter-spacing: .5px; cursor: pointer;
+      text-decoration: none; transition: background .2s; font-family: 'Jost', sans-serif;
+    }
+    .prop-wa-btn:hover { background: var(--verde-vivo); }
+    /* MODAL FICHA COMPLETA */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,30,22,0.75); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem; opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--blanco); border-radius: 8px;
+      max-width: 820px; width: 100%; max-height: 90vh;
+      overflow-y: auto; position: relative;
+      transform: translateY(24px); transition: transform .3s;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; justify-content: flex-end;
+      padding: .75rem 1rem; background: var(--blanco);
+      border-bottom: 1px solid #e8f0ec;
+    }
+    .modal-close button {
+      background: #f0f5f2; border: none; border-radius: 50%;
+      width: 34px; height: 34px; cursor: pointer; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--verde-oscuro); transition: background .2s;
+    }
+    .modal-close button:hover { background: #d4e8dc; }
+    .modal-carousel { position: relative; height: 320px; background: #d4e8dc; overflow: hidden; }
+    .modal-carousel .carousel-track { height: 320px; }
+    .modal-carousel .carousel-track img { height: 320px; object-fit: contain; object-position: center; background: #111e18; }
+    .modal-carousel .carousel-btn { opacity: 0.8; }
+    .modal-body { padding: 1.75rem 2rem 2rem; }
+    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; }
+    .modal-tipo { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--verde-vivo); margin-bottom: .3rem; }
+    .modal-nombre { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--texto); line-height: 1.2; }
+    .modal-precio { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--verde-oscuro); text-align: right; }
+    .modal-badges { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .modal-meta { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1.5rem; }
+    .modal-meta-item { background: #f5faf7; border-radius: 4px; padding: .75rem 1rem; }
+    .modal-meta-item span { font-size: 11px; color: var(--gris); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 3px; }
+    .modal-meta-item strong { font-size: 14px; color: var(--texto); font-weight: 500; }
+    .modal-desc-title { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--gris); margin-bottom: .5rem; }
+    .modal-desc { font-size: 15px; color: var(--texto); line-height: 1.8; margin-bottom: 1.75rem; }
+    .modal-wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 14px; background: #25D366; color: #fff;
+      border: none; border-radius: 4px; font-size: 15px; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: background .2s;
+      font-family: 'Jost', sans-serif; letter-spacing: .3px;
+    }
+    .modal-wa-btn:hover { background: #1da851; }
+    @media (max-width: 600px) {
+      .modal-meta { grid-template-columns: 1fr; }
+      .modal-body { padding: 1.25rem; }
+      .modal-nombre, .modal-precio { font-size: 1.5rem; }
+      .modal-carousel { height: 220px; }
+      .modal-carousel .carousel-track { height: 220px; }
+      .modal-carousel .carousel-track img { height: 220px; object-fit: contain; background: #111e18; }
+    }
+
+
+    .loading-props {
+      text-align: center; padding: 4rem; color: var(--gris);
+      font-size: 15px; grid-column: 1/-1;
+    }
+    .spinner {
+      width: 32px; height: 32px; border: 2px solid #e0e0e0;
+      border-top-color: var(--verde-vivo); border-radius: 50%;
+      animation: spin 1s linear infinite; margin: 0 auto 1rem;
+    }
+
+    /* NOSOTROS */
+    #nosotros {
+      background: linear-gradient(160deg, var(--verde-oscuro) 0%, var(--verde-medio) 100%);
+    }
+    .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .nosotros-img-wrap {
+      position: relative;
+    }
+    .nosotros-logo {
+      width: 100%; max-width: 340px;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      border: 1px solid rgba(201,168,76,0.3);
+    }
+    .nosotros-deco {
+      position: absolute; bottom: -20px; right: -20px;
+      width: 120px; height: 120px;
+      border: 1.5px solid rgba(201,168,76,0.3);
+      border-radius: 4px; z-index: -1;
+    }
+    .valores { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+    .valor-item { display: flex; align-items: flex-start; gap: .75rem; }
+    .valor-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 14px;
+    }
+    .valor-text strong { display: block; font-size: 13px; color: var(--blanco); margin-bottom: 2px; font-weight: 500; }
+    .valor-text span { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+    /* CONTACTO */
+    #contacto { background: var(--crema); }
+    .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contacto-info { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+    .contacto-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .contacto-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--verde-oscuro);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 18px;
+    }
+    .contacto-item strong { display: block; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--gris); margin-bottom: 2px; }
+    .contacto-item a, .contacto-item p { font-size: 15px; color: var(--texto); text-decoration: none; transition: color .2s; }
+    .contacto-item a:hover { color: var(--verde-vivo); }
+    .contacto-form { background: var(--blanco); padding: 2.5rem; border-radius: 4px; box-shadow: 0 4px 30px rgba(10,46,34,0.08); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+    .form-group label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gris); font-weight: 500; }
+    .form-group input, .form-group textarea, .form-group select {
+      border: 1.5px solid #e0e8e4; border-radius: 2px;
+      padding: 12px 14px; font-size: 14px; font-family: 'Jost', sans-serif;
+      background: #fafcfb; color: var(--texto);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      outline: none; border-color: var(--verde-vivo);
+      box-shadow: 0 0 0 3px rgba(26,107,77,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-form {
+      width: 100%; background: var(--verde-oscuro); color: var(--blanco);
+      border: none; padding: 14px; border-radius: 2px;
+      font-size: 13px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+      cursor: pointer; transition: background .2s; font-family: 'Jost', sans-serif;
+    }
+    .btn-form:hover { background: var(--verde-vivo); }
+
+    /* WHATSAPP FAB */
+    .wa-fab {
+      position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 200;
+      width: 54px; height: 54px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+    }
+    .wa-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    .wa-fab svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* FOOTER */
+    footer {
+      background: var(--verde-oscuro);
+      padding: 3rem 2rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    footer img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1.5px solid rgba(201,168,76,0.4); margin-bottom: 1rem; }
+    footer p { color: rgba(255,255,255,0.4); font-size: 13px; margin-top: .5rem; }
+    footer .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--blanco); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-8px); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nosotros-grid, .contacto-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .stat-item { padding: .75rem 1.5rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .nav-links, .nav-cta { display: none; }
+      .valores { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://i.ibb.co/whqfYrcY/logo-vienes-raices.jpg" alt="Logo Bienes Raíces Encarnación">
+    <span>Bienes Raíces Encarnación</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#propiedades">Propiedades</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="https://wa.me/524751105054" target="_blank" class="nav-cta">WhatsApp</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">Encarnación de Díaz, Jalisco</span>
+    <h1>Tu hogar <em>ideal</em><br>te está esperando</h1>
+    <p>En Bienes Raíces Encarnación te ayudamos a encontrar el hogar que siempre has imaginado, con honestidad, experiencia y atención personalizada.</p>
+    <div class="hero-buttons">
+      <a href="#propiedades" class="btn-primary">Ver propiedades</a>
+      <a href="#contacto" class="btn-outline">Contáctanos</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="stat-num" id="stat-props">—</div>
+    <div class="stat-label">Propiedades</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Compromiso</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Jalisco</div>
+    <div class="stat-label">Cobertura</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Atención</div>
+  </div>
+</div>
+
+<!-- PROPIEDADES -->
+<section id="propiedades">
+  <div class="container">
+    <div class="props-header">
+      <div>
+        <span class="section-tag">Portafolio</span>
+        <h2 class="section-title">Propiedades disponibles</h2>
+        <p class="section-sub">Casas y terrenos seleccionados en las mejores ubicaciones de Encarnación de Díaz.</p>
+      </div>
+    </div>
+    <div class="props-grid" id="props-grid">
+      <div class="loading-props">
+        <div class="spinner"></div>
+        Cargando propiedades...
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="container">
+    <div class="nosotros-grid">
+      <div class="nosotros-img-wrap">
+        <img src="https://i.ibb.co/whqfYrcY/logo-vienes-raices.jpg" alt="Bienes Raíces Encarnación" class="nosotros-logo">
+        <div class="nosotros-deco"></div>
+      </div>
+      <div>
+        <span class="section-tag" style="color:var(--dorado-claro)">Quiénes somos</span>
+        <h2 class="section-title light">Compromiso y<br>experiencia inmobiliaria</h2>
+        <p class="section-sub light">En Bienes Raíces Encarnación te ayudamos a encontrar el hogar que siempre has imaginado. Sabemos que comprar una propiedad es una de las decisiones más importantes de tu vida, por eso te acompañamos en cada paso del proceso con honestidad, experiencia y atención personalizada.</p>
+        <div class="valores">
+          <div class="valor-item">
+            <div class="valor-icon">🏡</div>
+            <div class="valor-text">
+              <strong>Casas y Terrenos</strong>
+              <span>Amplio catálogo de propiedades</span>
+            </div>
+          </div>
+          <div class="valor-item">
+            <div class="valor-icon">🤝</div>
+            <div class="valor-text">
+              <strong>Asesoría personal</strong>
+              <span>Te guiamos en cada paso</span>
+            </div>
+          </div>
+          <div class="valor-item">
+            <div class="valor-icon">✅</div>
+            <div class="valor-text">
+              <strong>Honestidad</strong>
+              <span>Transparencia en todo momento</span>
+            </div>
+          </div>
+          <div class="valor-item">
+            <div class="valor-icon">📍</div>
+            <div class="valor-text">
+              <strong>Encarnación de Díaz</strong>
+              <span>Conocemos la región</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div class="contacto-grid">
+      <div>
+        <span class="section-tag">Hablemos</span>
+        <h2 class="section-title">¿Listo para encontrar<br>tu propiedad?</h2>
+        <p class="section-sub">Contáctanos y con gusto te asesoramos sin costo ni compromiso.</p>
+        <div class="contacto-info">
+          <div class="contacto-item">
+            <div class="contacto-icon">📞</div>
+            <div>
+              <strong>Teléfono</strong>
+              <a href="tel:4751105054">475 110 5054</a>
+            </div>
+          </div>
+          <div class="contacto-item">
+            <div class="contacto-icon">💬</div>
+            <div>
+              <strong>WhatsApp</strong>
+              <a href="https://wa.me/524751105054" target="_blank">Enviar mensaje</a>
+            </div>
+          </div>
+          <div class="contacto-item">
+            <div class="contacto-icon">✉️</div>
+            <div>
+              <strong>Correo</strong>
+              <a href="mailto:bienesraicesencarnacion@gmail.com">bienesraicesencarnacion@gmail.com</a>
+            </div>
+          </div>
+          <div class="contacto-item">
+            <div class="contacto-icon">📍</div>
+            <div>
+              <strong>Dirección</strong>
+              <p>Avenida Cristeros #105, Residencial Los Altos,<br>Encarnación de Díaz, Jalisco</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contacto-form">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:1.5rem;color:var(--texto)">Envíanos un mensaje</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="Tu teléfono">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Correo</label>
+          <input type="email" placeholder="Tu correo">
+        </div>
+        <div class="form-group">
+          <label>Me interesa</label>
+          <select>
+            <option>Comprar una casa</option>
+            <option>Comprar un terreno</option>
+            <option>Información general</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea placeholder="¿En qué podemos ayudarte?"></textarea>
+        </div>
+        <button class="btn-form" onclick="enviarWA()">Enviar por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="https://i.ibb.co/whqfYrcY/logo-vienes-raices.jpg" alt="Logo">
+  <div class="footer-brand">Bienes Raíces Encarnación</div>
+  <p>Avenida Cristeros #105, Residencial Los Altos, Encarnación de Díaz, Jalisco</p>
+  <p style="margin-top:1.5rem">© 2025 Bienes Raíces Encarnación. Todos los derechos reservados.</p>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/524751105054" target="_blank" class="wa-fab" title="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+
+<!-- MODAL FICHA COMPLETA -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-close"><button onclick="closeModalBtn()">✕</button></div>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQzibQnWkKg5ZPm30e99689-pzVJV-VQIFEgs1a2zYH4BtvD-fj3XAUHBXqJCMXw984SHE2gPQ7EEmz/pub?gid=26214483&single=true&output=csv';
+
+// Convierte URLs de imgbb a link directo de imagen si es necesario
+function fixImgUrl(url) {
+  if (!url) return '';
+  url = url.trim();
+  // Si es una página de imgbb (no imagen directa), extraer ID y construir URL directa
+  // Ejemplo: https://ibb.co/abc123 -> no podemos resolverlo directamente
+  // El usuario debe usar el link directo que termina en .jpg/.png/.webp
+  // Links de imgbb directos ya funcionan: https://i.ibb.co/xxx/img.jpg
+  return url;
+}
+
+// Parser CSV robusto — maneja celdas con saltos de línea y comas dentro de comillas
+function parseCSV(text) {
+  var rows = [], row = [], cell = '', inQ = false;
+  var Q=34, CM=44, LF=10, CR=13;
+  for (var i=0; i<text.length; i++) {
+    var cc = text.charCodeAt(i);
+    if (cc===Q) {
+      if (inQ && text.charCodeAt(i+1)===Q) { cell+='"'; i++; }
+      else { inQ=!inQ; }
+    } else if (cc===CM && !inQ) {
+      row.push(cell.trim()); cell='';
+    } else if ((cc===LF||cc===CR) && !inQ) {
+      if (cc===CR && text.charCodeAt(i+1)===LF) i++;
+      row.push(cell.trim());
+      if (row.join('').trim()!=='') rows.push(row);
+      row=[]; cell='';
+    } else {
+      cell+=text[i];
+    }
+  }
+  row.push(cell.trim());
+  if (row.join('').trim()!=='') rows.push(row);
+  return rows;
+}
+
+function noPropsHtml() {
+  return `<div class="loading-props" style="color:#888">
+    <div style="font-size:2rem;margin-bottom:.5rem">🏡</div>
+    Próximamente publicaremos nuestras propiedades.<br>
+    <a href="https://wa.me/524751105054" style="color:var(--verde-vivo)">Contáctanos para más información</a>
+  </div>`;
+}
+
+function getFotos(p) {
+  const fotos = [];
+  for (let i = 1; i <= 10; i++) {
+    const f = fixImgUrl(p['foto' + i] || (i === 1 ? p['foto'] : ''));
+    if (f) fotos.push(f);
+  }
+  return fotos;
+}
+
+function buildCarousel(fotos, cid, height) {
+  const h = height || 220;
+  if (fotos.length === 0) return '';
+  if (fotos.length === 1) {
+    return `<div class="carousel" style="height:${h}px;background:#111e18" data-cid="${cid}">
+      <img src="${fotos[0]}" style="width:100%;height:${h}px;object-fit:contain;object-position:center;display:block;background:#111e18">
+    </div>`;
+  }
+  carouselState[cid] = 0;
+  const imgs = fotos.map(f => `<img src="${f}" style="min-width:100%;width:100%;height:${h}px;object-fit:contain;object-position:center;flex-shrink:0;display:block;background:#111e18">`).join('');
+  const dots = fotos.map((_, i) => `<span class="carousel-dot${i===0?' active':''}" onclick="goTo('${cid}',${i});event.stopPropagation()"></span>`).join('');
+  return `<div class="carousel" id="${cid}" style="height:${h}px;background:#111e18" data-cid="${cid}">
+    <div class="carousel-track" id="track-${cid}" style="height:${h}px">${imgs}</div>
+    <button class="carousel-btn prev" onclick="move('${cid}',-1);event.stopPropagation()">&#8592;</button>
+    <button class="carousel-btn next" onclick="move('${cid}',1);event.stopPropagation()">&#8594;</button>
+    <div class="carousel-dots" id="dots-${cid}">${dots}</div>
+    <div class="carousel-counter" id="counter-${cid}">1 / ${fotos.length}</div>
+  </div>`;
+}
+
+function buildCard(p, idx) {
+  const estado = (p.estado || 'disponible').toLowerCase();
+  const estadoClass = 'estado-' + (estado === 'vendido' ? 'vendido' : estado === 'apartado' ? 'apartado' : 'disponible');
+  const estadoLabel = estado === 'vendido' ? 'Vendido' : estado === 'apartado' ? 'Apartado' : 'Disponible';
+  const tipo = (p.tipo || '').toLowerCase();
+  const tipoIcon = tipo === 'terreno' ? '🌿' : '🏠';
+  const fotos = getFotos(p);
+  const cid = 'card' + idx;
+  const mediaHtml = fotos.length > 0
+    ? buildCarousel(fotos, cid, 220)
+    : `<div class="prop-img-placeholder">${tipoIcon}</div>`;
+  const precio = p.precio ? '$' + Number(p.precio.replace(/[^0-9.]/g,'')).toLocaleString('es-MX') : 'Consultar precio';
+  const metros = p.metros ? p.metros + ' m²' : '';
+
+  return `<div class="prop-card" onclick="openModal(${idx})" style="cursor:pointer">
+    ${mediaHtml}
+    <div class="prop-body">
+      <div class="prop-tipo">${tipoIcon} ${p.tipo || 'Propiedad'}</div>
+      <div class="prop-nombre">${p.nombre}</div>
+      <div class="prop-dir">📍 ${p.direccion || ''}</div>
+      <div class="prop-precio">${precio}</div>
+      ${metros ? `<div class="prop-metros">📐 ${metros}</div>` : ''}
+      <span class="prop-estado ${estadoClass}">${estadoLabel}</span>
+      <div class="prop-wa-btn" onclick="event.stopPropagation()">
+        👆 Ver ficha completa
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── MODAL ─────────────────────────────────────────────────
+function openModal(idx) {
+  const p = allProps[idx];
+  if (!p) return;
+  const estado = (p.estado || 'disponible').toLowerCase();
+  const estadoClass = 'estado-' + (estado === 'vendido' ? 'vendido' : estado === 'apartado' ? 'apartado' : 'disponible');
+  const estadoLabel = estado === 'vendido' ? 'Vendido' : estado === 'apartado' ? 'Apartado' : 'Disponible';
+  const tipo = (p.tipo || '').toLowerCase();
+  const tipoIcon = tipo === 'terreno' ? '🌿' : '🏠';
+  const fotos = getFotos(p);
+  const mcid = 'modal_c' + idx;
+  const precio = p.precio ? '$' + Number(p.precio.replace(/[^0-9.]/g,'')).toLocaleString('es-MX') : 'Consultar precio';
+  const metros = p.metros ? p.metros + ' m²' : '';
+  const waMsg = encodeURIComponent(`Hola, me interesa la propiedad: ${p.nombre}${p.direccion ? ' ubicada en ' + p.direccion : ''}. ¿Me pueden dar más información?`);
+
+  const carouselHtml = fotos.length > 0
+    ? buildCarousel(fotos, mcid, 320)
+    : `<div class="prop-img-placeholder" style="height:180px">${tipoIcon}</div>`;
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-carousel">${carouselHtml}</div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <div>
+          <div class="modal-tipo">${tipoIcon} ${p.tipo || 'Propiedad'}</div>
+          <div class="modal-nombre">${p.nombre}</div>
+        </div>
+        <div class="modal-precio">${precio}</div>
+      </div>
+      <div class="modal-badges">
+        <span class="prop-estado ${estadoClass}">${estadoLabel}</span>
+        ${metros ? `<span style="font-size:13px;color:var(--gris)">📐 ${metros}</span>` : ''}
+      </div>
+      ${p.direccion ? `<div class="modal-meta">
+        <div class="modal-meta-item"><span>Ubicación</span><strong>📍 ${p.direccion}</strong></div>
+        ${metros ? `<div class="modal-meta-item"><span>Superficie</span><strong>📐 ${metros}</strong></div>` : ''}
+      </div>` : ''}
+      ${p.descripcion ? `<div class="modal-desc-title">Descripción</div>
+      <div class="modal-desc">${p.descripcion.split(String.fromCharCode(10)).join('<br>')}</div>` : ''}
+      <a href="https://wa.me/524751105054?text=${waMsg}" target="_blank" class="modal-wa-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar mensaje por WhatsApp
+      </a>
+    </div>`;
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModalBtn();
+}
+function closeModalBtn() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
+
+// ── CARRUSEL ──────────────────────────────────────────────
+function move(cid, dir) {
+  const track = document.getElementById('track-' + cid);
+  if (!track) return;
+  const total = track.children.length;
+  carouselState[cid] = (carouselState[cid] + dir + total) % total;
+  updateCarousel(cid, total);
+}
+function goTo(cid, idx) {
+  const track = document.getElementById('track-' + cid);
+  if (!track) return;
+  carouselState[cid] = idx;
+  updateCarousel(cid, track.children.length);
+}
+function updateCarousel(cid, total) {
+  const idx = carouselState[cid];
+  const track = document.getElementById('track-' + cid);
+  const dotsEl = document.getElementById('dots-' + cid);
+  const counter = document.getElementById('counter-' + cid);
+  if (track) track.style.transform = `translateX(-${idx * 100}%)`;
+  if (dotsEl) [...dotsEl.children].forEach((d, i) => d.classList.toggle('active', i === idx));
+  if (counter) counter.textContent = `${idx + 1} / ${total}`;
+}
+
+// ── CONTACTO WA ───────────────────────────────────────────
+function enviarWA() {
+  const nombre = document.querySelector('.contacto-form input[type=text]').value;
+  const tel = document.querySelector('.contacto-form input[type=tel]').value;
+  const interes = document.querySelector('.contacto-form select').value;
+  const msg = document.querySelector('.contacto-form textarea').value;
+  const texto = `Hola, me llamo ${nombre||'(sin nombre)'}, mi teléfono es ${tel||'(sin teléfono)'}. Estoy interesado en: ${interes}. ${msg}`;
+  window.open('https://wa.me/524751105054?text=' + encodeURIComponent(texto), '_blank');
+}
+
+loadProperties();
+</script>
+</body>
+</html>
