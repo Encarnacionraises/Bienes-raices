@@ -792,14 +792,13 @@ function updateCarousel(cid, total) {
   if (counter) counter.textContent = `${idx + 1} / ${total}`;
 }
 
-// ── CONTACTO WA ───────────────────────────────────────────
 function enviarWA() {
-  const nombre = document.querySelector('.contacto-form input[type=text]').value;
-  const tel = document.querySelector('.contacto-form input[type=tel]').value;
-  const interes = document.querySelector('.contacto-form select').value;
-  const msg = document.querySelector('.contacto-form textarea').value;
-  const texto = `Hola, me llamo ${nombre||'(sin nombre)'}, mi teléfono es ${tel||'(sin teléfono)'}. Estoy interesado en: ${interes}. ${msg}`;
-  window.open('https://wa.me/524751105054?text=' + encodeURIComponent(texto), '_blank');
+  var n = document.getElementById('fn').value || 'sin nombre';
+  var t = document.getElementById('ft').value || 'sin teléfono';
+  var i = document.getElementById('fi').value;
+  var m = document.getElementById('fm').value;
+  var txt = 'Hola, me llamo ' + n + ', tel: ' + t + '. Interesado en: ' + i + '. ' + m;
+  window.open('https://wa.me/524751105054?text=' + encodeURIComponent(txt), '_blank');
 }
 
 load();
